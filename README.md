@@ -1,7 +1,7 @@
 # Project : DrinkRecognition
 Personal project - Drink recognition program for blind
 
-# 기한
+# 일정
 2021.02.15 ~ 2021.02.22
 
 # 주제

@@ -67,7 +67,7 @@ for image in images :
         # src : 뒤에 있는 주소가 이미지가 있는 주소
         # path = 'C:\Project01\selenium\1.cocacola' + str(count) + ".jpg"
         # path = 'C:\Project01\selenium\1.sprite' + str(count) + ".jpg"        
-        urllib.request.urlretrieve(imgUrl, str(count) + ".jpg") # Here is the Problem
+        urllib.request.urlretrieve(imgUrl, str(count) + ".jpg") 
         print("problem3")
         # urllib.request.urlretrieve(imgUrl, path)
         # 이미지를 저장한다.

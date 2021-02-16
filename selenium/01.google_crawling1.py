@@ -9,14 +9,35 @@ from selenium.webdriver.common.keys import Keys
 import time
 import urllib.request
 
+# import multiprocessing
+# import REG_RESOURCE_REQUIREMENTS_LIST
+# def getRequest(func, args, timeout) :
+#     manager = mutiprocessing.Manager()
+#     return_dict = manager.dic()
+#     def function (return_dict) :
+#         return_dict['value'] = func(*args)
+#     p = multiprocessing,Process(target=function, args=(return_dict))
+#     p.start()
+#     p.join(timeout)
+#     if p.is_alive() :
+#         p.terminate()
+#         p.join()
+#         raise TimeoutError
+#     else :
+#         return return_dict['value']
+
+
 driver = webdriver.Chrome(r"C:/Project01/selenium/chromedriver.exe")                 # 웹드라이버로 크롬을 가져온다.(크롬드라이버를 사용한다.)
+driver.implicitly_wait(3)
 driver.get("https://www.google.co.kr/imghp?hl=ko&ogbl")       # 크롬 사이트로 들어간다.
 elem = driver.find_element_by_name("q")   # 검색창을 찾는다. 구글창에서 f12눌러서 확인 가능함
 # elem.send_keys("cocacola can")  # 키보드 입력값
 # elem.send_keys("sprite can")  # 키보드 입력값
 # elem.send_keys("pocari sweat can")  # 키보드 입력값
 # elem.send_keys("데자와 캔")  # 키보드 입력값
-elem.send_keys("레쓰비 캔")  # 키보드 입력값
+# elem.send_keys("레쓰비 캔")  # 키보드 입력값
+elem.send_keys("fanta orange can")  # 키보드 입력값
+# elem.send_keys("demisoda apple")  # 키보드 입력값
 elem.send_keys(Keys.RETURN)     # enter key
 
 # 스크롤 끝까지 내린다음에 사진 다운로드를 시작한다.
@@ -47,15 +68,19 @@ images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd")
 count = 1
 for image in images : 
     try : 
+        print("problem0")
         image.click() 
-        time.sleep(10)
+        print("problem1")
+        time.sleep(20)
         # 이미지를 선택하고 로딩될 때까지 기다린다. 10초
         imgUrl = driver.find_element_by_xpath("/html/body/div[2]/c-wiz/div[3]/div[2]/div[3]/div/div/div[3]/div[2]/c-wiz/div/div[1]/div[1]/div/div[2]/a/img").get_attribute("src")
+        print("problem2")
         # 큰 이미지 하나를 선택
         # src : 뒤에 있는 주소가 이미지가 있는 주소
         # path = 'C:\Project01\selenium\1.cocacola' + str(count) + ".jpg"
-        # path = 'C:\Project01\selenium\1.sprite' + str(count) + ".jpg"
-        urllib.request.urlretrieve(imgUrl, str(count) + ".jpg")
+        # path = 'C:\Project01\selenium\1.sprite' + str(count) + ".jpg"        
+        urllib.request.urlretrieve(imgUrl, str(count) + ".jpg") # Here is the Problem
+        print("problem3")
         # urllib.request.urlretrieve(imgUrl, path)
         # 이미지를 저장한다.
         print(count, "download success")

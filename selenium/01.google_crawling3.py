@@ -4,7 +4,7 @@
 # cd selenium 
 # python google.py
 
-# header 추가
+# header 추가 :  봇인지 사람인지 구분해준다.
 # 이걸로 진행함
 
 from selenium import webdriver
@@ -53,22 +53,20 @@ images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd")
 count = 1
 for image in images : 
     try : 
-        print("problem0")
+        # print("problem0")
         image.click() 
-        print("problem1")
+        # print("problem1")
         time.sleep(10)
         # 이미지를 선택하고 로딩될 때까지 기다린다. 10초
         imgUrl = driver.find_element_by_xpath("/html/body/div[2]/c-wiz/div[3]/div[2]/div[3]/div/div/div[3]/div[2]/c-wiz/div/div[1]/div[1]/div/div[2]/a/img").get_attribute("src")
-        print("problem2")
+        # print("problem2")
+        # 큰 이미지 하나를 선택
+        # src : 뒤에 있는 주소가 이미지가 있는 주소 
         opener = urllib.request.build_opener()
         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
         urllib.request.install_opener(opener)
-        # 큰 이미지 하나를 선택
-        # src : 뒤에 있는 주소가 이미지가 있는 주소
-        # path = 'C:\Project01\selenium\1.cocacola' + str(count) + ".jpg"
-        # path = 'C:\Project01\selenium\1.sprite' + str(count) + ".jpg"        
         urllib.request.urlretrieve(imgUrl, str(count) + ".jpg") 
-        print("problem3")
+        # print("problem3")
         # urllib.request.urlretrieve(imgUrl, path)
         # 이미지를 저장한다.
         print(count, "download success")

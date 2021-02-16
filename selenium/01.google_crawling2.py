@@ -4,7 +4,7 @@
 # cd selenium 
 # python google.py
 
-#  WebDriverWait 추가
+#  WebDriverWait 추가 > 안됨
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys

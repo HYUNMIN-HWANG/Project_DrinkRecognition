@@ -4,6 +4,8 @@
 # cd selenium 
 # python google.py
 
+# 이미지 다운받다가 멈춤
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time

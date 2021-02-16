@@ -37,7 +37,7 @@ tejava_list = glob('../Project01_data/normal_data/tejava/*.jpg')
 print(len(tejava_list))   # 100
 
 name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
-name = ['cocacola','fanta','letsbee',' pocari','sprite','tejava']
+name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
 
 def labeling (image_list, label, data_list, label_list) :
     for i in image_list :
@@ -55,6 +55,7 @@ def labeling (image_list, label, data_list, label_list) :
 
 index = 0
 for std in name_list :
+    print("index : ", index)
     
     # 기준이 되는 음료수 데이터를 넣는다.
     std_data = list()
@@ -65,14 +66,14 @@ for std in name_list :
     # print(copy_list)
     # print(std)                        # 기준이 되는 음료수
     std_data, std_label = labeling (std, 0, std_data, std_label)     # 0 : 기준이 되는 음료수와 동일하다.
-    print(std_data[0])
+    # print(std_data[0])
     # print(std_data.type())
     # print(std_label[:5])
-    print(std[0], std_label[:5])
+    # print(std[0], std_label[:5])
 
-    with open('../Project01_data/normal_data/' + str(name[index])+'/'+ str(name[index]) + '_normal.txt', 'w') as f :  # 이미지 경로들이 txt파일에 한 줄씩 저장
-        f.write('\n'.join(std_data)+'\n')
-        f.write('\n'.append(std_data)+'\n')
+    # 기준 데이터의 변수 자동 생성
+    globals()['std_data_{}'.format(name[index])] = std_data
+    # print(std_data_cocacola)
 
     # 기준이 되는 음료수를 제외한, 나머지 데이터를 하나의 리스트에 넣는다.
     copy_list.remove(std)               
@@ -81,23 +82,31 @@ for std in name_list :
     # print(copy_name)             
     dif_data = list()
     dif_label = list()
-    copy_index = 0
+    # copy_index = 0
     for dif in copy_list :
         dif_data, dif_label = labeling (dif, 1, dif_data, dif_label) # 1: 기준이 되는 음료수와 동일하다.
         # print(len(dif_data))
         # print(len(dif_label))
-        with open('../Project01_data/normal_data/' + str(name[index])+'/'+ str(copy_name[copy_index]) + '_dif.txt', 'w') as f :  # 이미지 경로들이 txt파일에 한 줄씩 저장
-            f.write('\n'.join(dif_data)+'\n')
-        copy_index += 1
+        # copy_index += 1
     # print(dif_data[0], dif_label[:5])
+
+    # 비교 데이터의 변수 자동 생성
+    globals()['dif_data_{}'.format(name[index])] = dif_data
+
     print("std data", len(std_data))
     print("dif data", len(dif_data))
+
     index += 1
 
-
+# print("==========자동 변수 생성 확인=========")
+# print(len(std_data_cocacola),len(dif_data_cocacola))
+# print(len(std_data_fanta),len(dif_data_fanta))
+# print(len(std_data_letsbee),len(dif_data_letsbee))
+# print(len(std_data_pocari),len(dif_data_pocari))
+# print(len(std_data_sprite),len(dif_data_sprite))
+# print(len(std_data_tejava),len(dif_data_tejava))
 
 '''
-
 coke_data, coke_label = labeling (coke_list, 0)
 print(coke_data[0])
 print(coke_label[:10])

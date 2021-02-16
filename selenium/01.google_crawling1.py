@@ -1,7 +1,7 @@
 # 참고이미지 : https://youtu.be/1b7pXC1-IbE
 
 # selenium 가상환경으로 바꿔줘야 함
-# cd selenium 
+# cd selenium/Scripts > activate
 # python google.py
 
 # 이미지 다운받다가 멈춤

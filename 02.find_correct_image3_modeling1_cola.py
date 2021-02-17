@@ -17,6 +17,7 @@ import tensorflow as tf
 # 참고사이트 : https://buillee.tistory.com/111
 # https://github.com/skanwngud/Project/blob/main/mask/human_nohuman.py
 
+# 이 모델로 갈 것임
 
 coke_list=glob('../Project01_data/normal_data/cocacola/*.jpg')
 print(len(coke_list))   # 212

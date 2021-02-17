@@ -50,8 +50,6 @@ train_datagen = ImageDataGenerator(
 
 etc_datagen = ImageDataGenerator()
 
-pred_datagen = ImageDataGenerator(rescale=1./255)
-
 # # 1. DATA
 # np.load
 x_train = np.load('../Project01_data/9.npy/color_x_train_cocacola.npy')
@@ -66,8 +64,8 @@ print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 
 print(x_train.min(), x_train.max()) # 0.0 ~ 1.0
 
-# x :  (1080, 64, 64, 3) (127, 64, 64, 3) (57, 64, 64, 3)
-# y :  (1080,) (127,) (57,)
+# x :  (339, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
+# y :  (339,) (42,) (38,)
 
 # print(y_train[:30]) # 0 또는 1 (0이 올바른 이미지, 1이 다른 이미지)
 
@@ -77,40 +75,7 @@ train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
 test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
 
-# x :  (1080, 64, 64, 3) (127, 64, 64, 3) (57, 64, 64, 3)
-# y :  (1080,) (127,) (57,)
 
-# #2 Modeling
-# def modeling() :
-#     model = Sequential()
-#     model.add(Conv2D(32, (2,2), padding='same', activation='relu', input_shape=(x_train.shape[1], x_train.shape[2], x_train.shape[3])))
-#     model.add(BatchNormalization())
-#     model.add(Conv2D(32, (3,3), padding='same', activation='relu'))
-#     model.add(BatchNormalization())
-#     model.add(MaxPool2D(2,2))
-#     model.add(Dropout(0.2))
-
-#     model.add(Conv2D(64, (2,2), padding='same', activation='relu'))
-#     model.add(BatchNormalization())
-#     model.add(Conv2D(64, (2,2), padding='same', activation='relu'))
-#     model.add(BatchNormalization())
-#     model.add(MaxPool2D(2,2))
-#     model.add(Dropout(0.3))
-
-#     model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
-#     model.add(BatchNormalization())
-#     model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
-#     model.add(BatchNormalization())
-#     model.add(MaxPool2D(2,2))
-#     model.add(Dropout(0.4))
-
-#     model.add(Flatten())
-#     model.add(Dense(128, activation='relu'))
-#     model.add(Dense(64, activation='relu'))
-#     model.add(Dense(1, activation='sigmoid'))
-#     return model
-
-# model = modeling()
 model = load_model('../Project01_data/9.cp/find_cocacola_0.0000.hdf5')
 
 #3 Compile, train
@@ -134,8 +99,10 @@ print("acc : ", acc)
 
 
 
-# img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/1.jpg', color_mode='rgb', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
-img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/67.jpg', color_mode='rgb', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
+# img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/1.jpg', color_mode='rgb', target_size=(80, 80))  # true
+# img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/67.jpg', color_mode='rgb', target_size=(80, 80)) # true
+img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/video_cocacola2_26.jpg', color_mode='rgb', target_size=(80, 80))   # true
+# img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/196.jpg', color_mode='rgb', target_size=(80, 80))   # true
 im1 = img1.resize((x_train.shape[1], x_train.shape[2]))
 im1 = np.array(im1)/255.
 im1 = im1.reshape(-1, x_train.shape[1], x_train.shape[2],3)
@@ -143,7 +110,8 @@ print(im1.shape)    # (1, 80, 80, 1)
 true = etc_datagen.flow(im1)
 
 # img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/60.jpg', color_mode='rgb', target_size=(80, 80))  # false
-img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/244.jpg', color_mode='rgb', target_size=(80, 80))  # false
+# img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/244.jpg', color_mode='rgb', target_size=(80, 80))  # false
+img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/208.jpg', color_mode='rgb', target_size=(80, 80))  # false
 im2 = img2.resize((x_train.shape[1], x_train.shape[2]))
 im2 = np.array(im2)/255.
 im2 = im2.reshape(-1, x_train.shape[1], x_train.shape[2],3)
@@ -164,5 +132,8 @@ print(false_pred)
 
 # 3.4570996e-06
 # 1.0
+
+# 1.1790849e-05
+# 0.9968755
 
 # 오 된 듯 ???

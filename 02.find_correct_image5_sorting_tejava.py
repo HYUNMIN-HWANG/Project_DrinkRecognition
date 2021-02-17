@@ -73,20 +73,20 @@ y_valid = np.load('../Project01_data/9.npy/color_y_valid_tejava.npy')
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 
-# x :  (340, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
-# y :  (340,) (42,) (38,)
+# x :  (340, 64, 64, 1) (43, 64, 64, 1) (38, 64, 64, 1)
+# y :  (340,) (43,) (38,)
 
 print(x_train.min(), x_train.max()) # 0.0 ~ 1.0
 
 print(y_train[:30]) # 0 또는 1 (0이 올바른 이미지, 1이 다른 이미지)
 
-batch = 16
+batch = 8
 train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
 test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
 
 
-model = load_model('../Project01_data/9.cp/find_tejava_0.0002.hdf5')
+model = load_model('../Project01_data/9.cp/find_tejava_0.0001.hdf5')
 
 #3 Compile, train
 
@@ -95,7 +95,7 @@ loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
 
-# loss :  0.0002580632863100618
+# loss :  3.936268694815226e-05
 # acc :  1.0
 
 ################
@@ -115,7 +115,7 @@ def prepro_n_predict (whole_list) :
             im1 = img1.resize((x_train.shape[1], x_train.shape[2]))
             im1 = np.array(im1)/255.
             im1 = im1.reshape(-1, x_train.shape[1], x_train.shape[2],3)
-            print(im1.shape)    # (1, 64, 64, 3)
+            print(im1.shape)    # (1, 64, 64, 1)
             pre = etc_datagen.flow(im1)
             # predict
             pred = model.predict(pre)

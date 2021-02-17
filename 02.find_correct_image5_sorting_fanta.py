@@ -86,7 +86,7 @@ test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
 
 
-model = load_model('../Project01_data/9.cp/find_')
+model = load_model('../Project01_data/9.cp/find_fanta_0.0001.hdf5')
 
 #3 Compile, train
 
@@ -95,7 +95,7 @@ loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
 
-# loss :  0.05507616698741913
+# loss :  0.1651313155889511
 # acc :  0.976190447807312
 
 ################

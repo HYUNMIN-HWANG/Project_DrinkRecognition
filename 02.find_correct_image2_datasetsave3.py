@@ -80,17 +80,24 @@ print(std_label_cocacola.shape)  # (209,)
 print(dif_data_cocacola.shape)   # (1055, 64, 64, 3)
 print(dif_label_cocacola.shape)  # (1055,)
 
-std_data = [std_data_cocacola, std_data_fanta, std_data_letsbee, std_data_pocari, std_data_sprite, std_data_tejava]
-std_label = [std_label_cocacola, std_label_fanta, std_label_letsbee, std_label_pocari, std_label_sprite, std_label_tejava]
-dif_data = [dif_data_cocacola, dif_data_fanta, dif_data_letsbee, dif_data_pocari, dif_data_sprite, dif_data_tejava]
-dif_label = [dif_label_cocacola, dif_label_fanta, dif_label_letsbee, dif_label_pocari, dif_label_sprite, dif_label_tejava]
+# std_data = [std_data_cocacola, std_data_fanta, std_data_letsbee, std_data_pocari, std_data_sprite, std_data_tejava]
+# std_label = [std_label_cocacola, std_label_fanta, std_label_letsbee, std_label_pocari, std_label_sprite, std_label_tejava]
+# dif_data = [dif_data_cocacola, dif_data_fanta, dif_data_letsbee, dif_data_pocari, dif_data_sprite, dif_data_tejava]
+# dif_label = [dif_label_cocacola, dif_label_fanta, dif_label_letsbee, dif_label_pocari, dif_label_sprite, dif_label_tejava]
+
+# 데자와만 회색 이미지로 저장
+std_data = [std_data_tejava]
+std_label = [std_label_tejava]
+dif_data = [dif_data_tejava]
+dif_label = [dif_label_tejava]
 
 ####
 # Deep Learning Modeling strat
 
 #1 DATA
 
-for i in range(0, 6) :  # i >> 0,1,2,3,4,5
+# for i in range(0, 6) :  # i >> 0,1,2,3,4,5
+for i in range(0, 1) :  # i >> 0
     print(i)
 
     x = np.concatenate((std_data[i], dif_data[i]),axis=0)    
@@ -106,18 +113,31 @@ for i in range(0, 6) :  # i >> 0,1,2,3,4,5
     print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
     print("y : ", y_train.shape, y_test.shape, y_valid.shape)  
 
-    # np.save
-    path1 = '../Project01_data/9.npy/gray_x_train_' + str(name[i]) + '.npy'
+    # # np.save
+    # path1 = '../Project01_data/9.npy/gray_x_train_' + str(name[i]) + '.npy'
+    # np.save(path1, arr=x_train)
+    # path2 = '../Project01_data/9.npy/gray_x_test_' + str(name[i]) + '.npy'
+    # np.save(path2, arr=x_test)
+    # path3 = '../Project01_data/9.npy/gray_x_valid_' + str(name[i]) + '.npy'
+    # np.save(path3, arr=x_valid)
+    # path4 = '../Project01_data/9.npy/gray_y_train_' + str(name[i]) + '.npy'
+    # np.save(path4, arr=y_train)
+    # path5 = '../Project01_data/9.npy/gray_y_test_' + str(name[i]) + '.npy'
+    # np.save(path5, arr=y_test)
+    # path6 = '../Project01_data/9.npy/gray_y_valid_' + str(name[i]) + '.npy'
+    # np.save(path6, arr=y_valid)
+
+    path1 = '../Project01_data/9.npy/gray_x_train_tejava.npy'
     np.save(path1, arr=x_train)
-    path2 = '../Project01_data/9.npy/gray_x_test_' + str(name[i]) + '.npy'
+    path2 = '../Project01_data/9.npy/gray_x_test_tejava.npy'
     np.save(path2, arr=x_test)
-    path3 = '../Project01_data/9.npy/gray_x_valid_' + str(name[i]) + '.npy'
+    path3 = '../Project01_data/9.npy/gray_x_valid_tejava.npy'
     np.save(path3, arr=x_valid)
-    path4 = '../Project01_data/9.npy/gray_y_train_' + str(name[i]) + '.npy'
+    path4 = '../Project01_data/9.npy/gray_y_train_tejava.npy'
     np.save(path4, arr=y_train)
-    path5 = '../Project01_data/9.npy/gray_y_test_' + str(name[i]) + '.npy'
+    path5 = '../Project01_data/9.npy/gray_y_test_tejava.npy'
     np.save(path5, arr=y_test)
-    path6 = '../Project01_data/9.npy/gray_y_valid_' + str(name[i]) + '.npy'
+    path6 = '../Project01_data/9.npy/gray_y_valid_tejava.npy'
     np.save(path6, arr=y_valid)
 
 
@@ -159,6 +179,13 @@ y :  (340,) (42,) (38,)
 (418, 80, 80, 1)
 x :  (338, 80, 80, 1) (42, 80, 80, 1) (38, 80, 80, 1)
 y :  (338,) (42,) (38,)
+==================================
+tejava
+(212, 64, 64)
+(209, 64, 64)
+(421, 64, 64, 1)
+x :  (340, 64, 64, 1) (43, 64, 64, 1) (38, 64, 64, 1)
+y :  (340,) (43,) (38,)
 """
 
 '''

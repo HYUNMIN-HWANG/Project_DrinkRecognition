@@ -37,11 +37,11 @@ print(len(tejava_list))   # 212
 
 
 #################### 
+# 데자와는 색깔이 피부톤이랑 비슷해서인지 사람도 데자와라고 인식한다. 데지와는 색깔을 빼야겠다.
 
-# name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
-# name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
-name_list = [tejava_list]
-name = ['tejava']
+name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
+name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
+
 
 def labeling (image_list, label, data_list, label_list) :
     for i in image_list :

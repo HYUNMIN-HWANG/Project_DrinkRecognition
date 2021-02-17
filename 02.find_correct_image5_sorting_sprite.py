@@ -126,7 +126,7 @@ def prepro_n_predict (whole_list) :
             # 0이면 다른 폴더에 사진 복사 & 저장
             if pred == 0 :
                 copy_path = '../Project01_data/sorting_correct/sprite/'+str(n)+'.jpg'
-                shutil.copy(img, copy_path)
+                # shutil.copy(img, copy_path)
                 time.sleep(5)   # 저장하기 위한 시간
                 n += 1
             else :

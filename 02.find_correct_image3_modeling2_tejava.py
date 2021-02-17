@@ -48,7 +48,7 @@ train_datagen = ImageDataGenerator(
 
 etc_datagen = ImageDataGenerator()
 
-# 1. DATA
+# 1. DAT
 # np.load
 x_train = np.load('../Project01_data/9.npy/gray_x_train_tejava.npy')
 x_test = np.load('../Project01_data/9.npy/gray_x_test_tejava.npy')
@@ -60,8 +60,8 @@ y_valid = np.load('../Project01_data/9.npy/gray_y_valid_tejava.npy')
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 
-# x :  (337, 80, 80, 1) (42, 80, 80, 1) (38, 80, 80, 1)
-# y :  (337,) (42,) (38,)
+# x :  (340, 64, 64, 1) (43, 64, 64, 1) (38, 64, 64, 1)
+# y :  (340,) (43,) (38,)
 
 batch = 8
 train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
@@ -118,3 +118,5 @@ loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
 
+# loss :  0.01879986934363842
+# acc :  1.0

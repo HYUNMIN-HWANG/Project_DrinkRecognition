@@ -64,7 +64,7 @@ print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 # x :  (339, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
 # y :  (339,) (42,) (38,)
 
-batch = 16
+batch = 8
 train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
 test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
@@ -86,6 +86,8 @@ def modeling() :
     model.add(MaxPool2D(2,2))
     model.add(Dropout(0.3))
 
+    model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
+    model.add(BatchNormalization())
     model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
     model.add(BatchNormalization())
     model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
@@ -116,3 +118,6 @@ hist = model.fit_generator(
 loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
+
+# loss :  0.0003358993271831423
+# acc :  1.0

@@ -61,8 +61,8 @@ y_valid = np.load('../Project01_data/9.npy/color_y_valid_letsbee.npy')
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 
-# x :  (339, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
-# y :  (339,) (42,) (38,)
+# x :  (340, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
+# y :  (340,) (42,) (38,)
 
 batch = 16
 train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
@@ -116,3 +116,6 @@ hist = model.fit_generator(
 loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
+
+# loss :  0.007130001205950975
+# acc :  1.0

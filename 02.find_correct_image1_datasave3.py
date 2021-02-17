@@ -38,14 +38,16 @@ print(len(tejava_list))   # 212
 
 #################### 
 
-name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
-name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
+# name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
+# name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
+name_list = [tejava_list]
+name = ['tejava']
 
 def labeling (image_list, label, data_list, label_list) :
     for i in image_list :
         try :
             # print(i)
-            img = tf.keras.preprocessing.image.load_img(i, color_mode='grayscale', target_size=(80, 80))
+            img = tf.keras.preprocessing.image.load_img(i, color_mode='grayscale', target_size=(64,64))
             img=np.array(img)/255.
             data_list.append(img)
             label_list.append(label)

@@ -44,11 +44,11 @@ print(len(tejava_list))   # 212
 
 #################### 
 
-name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
-name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
+# name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
+# name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
 
-name_list = [coke_list]
-name = ['cocacola']
+# name_list = [coke_list]
+# name = ['cocacola']
 
 train_datagen = ImageDataGenerator(
     # rescale=1./255,
@@ -63,12 +63,12 @@ etc_datagen = ImageDataGenerator()
 
 # # 1. DATA
 # np.load
-x_train = np.load('../Project01_data/9.npy/color_x_train_cocacola.npy')
-x_test = np.load('../Project01_data/9.npy/color_x_test_cocacola.npy')
-x_valid = np.load('../Project01_data/9.npy/color_x_valid_cocacola.npy')
-y_train = np.load('../Project01_data/9.npy/color_y_train_cocacola.npy')
-y_test = np.load('../Project01_data/9.npy/color_y_test_cocacola.npy')
-y_valid = np.load('../Project01_data/9.npy/color_y_valid_cocacola.npy')
+x_train = np.load('../Project01_data/9.npy/color_x_train_pocari.npy')
+x_test = np.load('../Project01_data/9.npy/color_x_test_pocari.npy')
+x_valid = np.load('../Project01_data/9.npy/color_x_valid_pocari.npy')
+y_train = np.load('../Project01_data/9.npy/color_y_train_pocari.npy')
+y_test = np.load('../Project01_data/9.npy/color_y_test_pocari.npy')
+y_valid = np.load('../Project01_data/9.npy/color_y_valid_pocari.npy')
 
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
@@ -86,7 +86,7 @@ test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
 
 
-model = load_model('../Project01_data/9.cp/find_cocacola_0.0000.hdf5')
+model = load_model('../Project01_data/9.cp/find_pocari_0.0028.hdf5')
 
 #3 Compile, train
 
@@ -95,8 +95,8 @@ loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
 
-# loss :  0.0013317769626155496
-# acc :  1.0
+# loss :  0.05507616698741913
+# acc :  0.976190447807312
 
 ################
 
@@ -111,11 +111,11 @@ def prepro_n_predict (whole_list) :
             # preprocessing
             print("검사할 이미지 ",img)
             copy_img = img
-            img1 = tf.keras.preprocessing.image.load_img(copy_img, color_mode='rgb', target_size=(80, 80)) 
+            img1 = tf.keras.preprocessing.image.load_img(copy_img, color_mode='rgb', target_size=(64,64)) 
             im1 = img1.resize((x_train.shape[1], x_train.shape[2]))
             im1 = np.array(im1)/255.
             im1 = im1.reshape(-1, x_train.shape[1], x_train.shape[2],3)
-            print(im1.shape)    # (64, 64, 3)
+            print(im1.shape)    # (1, 64, 64, 3)
             pre = etc_datagen.flow(im1)
             # predict
             pred = model.predict(pre)
@@ -125,9 +125,9 @@ def prepro_n_predict (whole_list) :
             # result_list.append(int(pred))
             # 0이면 다른 폴더에 사진 복사 & 저장
             if pred == 0 :
-                copy_path = '../Project01_data/sorting_correct/cocacola/'+str(n)+'.jpg'
+                copy_path = '../Project01_data/sorting_correct/pocari/'+str(n)+'.jpg'
                 shutil.copy(img, copy_path)
-                time.sleep(10)
+                time.sleep(5)   # 저장하기 위한 시간
                 n += 1
             else :
                 pass
@@ -136,9 +136,7 @@ def prepro_n_predict (whole_list) :
     return result_list
 
 
-for whole in name_list :  # 음료수 별로 전체 데이터 불러오기
-    print("전체 데이터 개수 ",len(whole))
-    result = prepro_n_predict(whole)
-    # print(result)
-    print(">>> copy end >>>")
-    
+print("전체 데이터 개수 ",len(pocari_list))
+result = prepro_n_predict(pocari_list)
+# print(result)
+print(">>> copy end >>>")

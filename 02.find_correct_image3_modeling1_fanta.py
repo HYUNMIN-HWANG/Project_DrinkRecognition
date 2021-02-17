@@ -90,8 +90,10 @@ def modeling() :
     model.add(BatchNormalization())
     model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
     model.add(BatchNormalization())
+    model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
+    model.add(BatchNormalization())
     model.add(MaxPool2D(2,2))
-    model.add(Dropout(0.4))
+    model.add(Dropout(0.3))
 
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))

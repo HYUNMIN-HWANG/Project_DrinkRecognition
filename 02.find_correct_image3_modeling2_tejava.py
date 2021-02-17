@@ -17,7 +17,6 @@ import tensorflow as tf
 # 참고사이트 : https://buillee.tistory.com/111
 # https://github.com/skanwngud/Project/blob/main/mask/human_nohuman.py
 
-# 이 모델로 갈 것임
 
 coke_list=glob('../Project01_data/normal_data/cocacola/*.jpg')
 print(len(coke_list))   # 212
@@ -51,20 +50,20 @@ etc_datagen = ImageDataGenerator()
 
 # 1. DATA
 # np.load
-x_train = np.load('../Project01_data/9.npy/color_x_train_sprite.npy')
-x_test = np.load('../Project01_data/9.npy/color_x_test_sprite.npy')
-x_valid = np.load('../Project01_data/9.npy/color_x_valid_sprite.npy')
-y_train = np.load('../Project01_data/9.npy/color_y_train_sprite.npy')
-y_test = np.load('../Project01_data/9.npy/color_y_test_sprite.npy')
-y_valid = np.load('../Project01_data/9.npy/color_y_valid_sprite.npy')
+x_train = np.load('../Project01_data/9.npy/gray_x_train_tejava.npy')
+x_test = np.load('../Project01_data/9.npy/gray_x_test_tejava.npy')
+x_valid = np.load('../Project01_data/9.npy/gray_x_valid_tejava.npy')
+y_train = np.load('../Project01_data/9.npy/gray_y_train_tejava.npy')
+y_test = np.load('../Project01_data/9.npy/gray_y_test_tejava.npy')
+y_valid = np.load('../Project01_data/9.npy/gray_y_valid_tejava.npy')
 
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 
-# x :  (339, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
-# y :  (339,) (42,) (38,)
+# x :  (337, 80, 80, 1) (42, 80, 80, 1) (38, 80, 80, 1)
+# y :  (337,) (42,) (38,)
 
-batch = 16
+batch = 8
 train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
 test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
@@ -81,12 +80,14 @@ def modeling() :
 
     model.add(Conv2D(64, (2,2), padding='same', activation='relu'))
     model.add(BatchNormalization())
-    model.add(Conv2D(64, (2,2), padding='same', activation='relu'))
+    model.add(Conv2D(64, (3,3), padding='same', activation='relu'))
     model.add(BatchNormalization())
     model.add(MaxPool2D(2,2))
     model.add(Dropout(0.3))
 
     model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
+    model.add(BatchNormalization())
+    model.add(Conv2D(128, (3,3), padding='same', activation='relu'))
     model.add(BatchNormalization())
     model.add(Conv2D(128, (2,2), padding='same', activation='relu'))
     model.add(BatchNormalization())
@@ -104,7 +105,7 @@ model = modeling()
 #3 Compile, train
 es = EarlyStopping(monitor='val_loss', patience=20, mode='min')
 lr = ReduceLROnPlateau(monitor='val_loss', factor=0.3, patience=10, mode='min')
-path = '../Project01_data/9.cp/find_sprite_{val_loss:.4f}.hdf5'
+path = '../Project01_data/9.cp/gray_find_tejava_{val_loss:.4f}.hdf5'
 cp = ModelCheckpoint(path, monitor='val_loss',mode='min', save_best_only=True)
 
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
@@ -117,5 +118,3 @@ loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
 
-# loss :  0.0018731217132881284
-# acc :  1.0

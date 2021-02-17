@@ -1,7 +1,7 @@
 # [[가상환경 만들기]]
 # - 참고사이트 : https://youtu.be/1b7pXC1-IbE
 # python -m venv selenium 
-# selenium\Scripts > activate
+# cd selenium\Scripts > activate
 # pip install selenium
 
 # labelImg 다운로드  

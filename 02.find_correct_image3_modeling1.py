@@ -50,26 +50,23 @@ etc_datagen = ImageDataGenerator()
 
 # 1. DATA
 # np.load
-x_train = np.load('../Project01_data/9.npy/x_train_cocacola.npy')
-x_test = np.load('../Project01_data/9.npy/x_test_cocacola.npy')
-x_valid = np.load('../Project01_data/9.npy/x_valid_cocacola.npy')
-y_train = np.load('../Project01_data/9.npy/y_train_cocacola.npy')
-y_test = np.load('../Project01_data/9.npy/y_test_cocacola.npy')
-y_valid = np.load('../Project01_data/9.npy/y_valid_cocacola.npy')
+x_train = np.load('../Project01_data/9.npy/color_x_train_cocacola.npy')
+x_test = np.load('../Project01_data/9.npy/color_x_test_cocacola.npy')
+x_valid = np.load('../Project01_data/9.npy/color_x_valid_cocacola.npy')
+y_train = np.load('../Project01_data/9.npy/color_y_train_cocacola.npy')
+y_test = np.load('../Project01_data/9.npy/color_y_test_cocacola.npy')
+y_valid = np.load('../Project01_data/9.npy/color_y_valid_cocacola.npy')
 
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 
-# x :  (1080, 64, 64, 3) (127, 64, 64, 3) (57, 64, 64, 3)
-# y :  (1080,) (127,) (57,)
+# x :  (339, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
+# y :  (339,) (42,) (38,)
 
 batch = 16
 train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
 test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
-
-# x :  (1080, 64, 64, 3) (127, 64, 64, 3) (57, 64, 64, 3)
-# y :  (1080,) (127,) (57,)
 
 #2 Modeling
 def modeling() :

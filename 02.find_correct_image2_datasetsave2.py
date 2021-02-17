@@ -38,7 +38,7 @@ print(len(tejava_list))   # 212
 name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]
 name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
 
-'''
+
 # np.load =====================================================================
 print("np.load start>>>>>>>>>>>>>>>>>>")
 std_data_cocacola = np.load('../Project01_data/9.npy/std_data_cocacola.npy')    # x
@@ -105,19 +105,19 @@ for i in range(0, 6) :  # i >> 0,1,2,3,4,5
     print("y : ", y_train.shape, y_test.shape, y_valid.shape)  
 
     # np.save
-    path1 = '../Project01_data/9.npy/x_train_' + str(name[i]) + '.npy'
+    path1 = '../Project01_data/9.npy/color_x_train_' + str(name[i]) + '.npy'
     np.save(path1, arr=x_train)
-    path2 = '../Project01_data/9.npy/x_test_' + str(name[i]) + '.npy'
+    path2 = '../Project01_data/9.npy/color_x_test_' + str(name[i]) + '.npy'
     np.save(path2, arr=x_test)
-    path3 = '../Project01_data/9.npy/x_valid_' + str(name[i]) + '.npy'
+    path3 = '../Project01_data/9.npy/color_x_valid_' + str(name[i]) + '.npy'
     np.save(path3, arr=x_valid)
-    path4 = '../Project01_data/9.npy/y_train_' + str(name[i]) + '.npy'
+    path4 = '../Project01_data/9.npy/color_y_train_' + str(name[i]) + '.npy'
     np.save(path4, arr=y_train)
-    path5 = '../Project01_data/9.npy/y_test_' + str(name[i]) + '.npy'
+    path5 = '../Project01_data/9.npy/color_y_test_' + str(name[i]) + '.npy'
     np.save(path5, arr=y_test)
-    path6 = '../Project01_data/9.npy/y_valid_' + str(name[i]) + '.npy'
+    path6 = '../Project01_data/9.npy/color_y_valid_' + str(name[i]) + '.npy'
     np.save(path6, arr=y_valid)
-'''
+
 
 """
 <np.save shape 확인>
@@ -159,7 +159,7 @@ x :  (340, 64, 64, 3) (42, 64, 64, 3) (38, 64, 64, 3)
 y :  (340,) (42,) (38,)
 """
 
-
+'''
 # <np.load 잘 돌아가는 지 확인> 
 # np.load
 x_train = np.load('../Project01_data/9.npy/x_train_cocacola.npy')
@@ -172,3 +172,4 @@ y_valid = np.load('../Project01_data/9.npy/y_valid_cocacola.npy')
 
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
+'''

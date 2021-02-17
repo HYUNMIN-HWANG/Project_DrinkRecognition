@@ -32,6 +32,7 @@ import tensorflow as tf
 # tejava_list = glob('../Project01_data/normal_data/tejava/*.jpg')
 # print(len(tejava_list))   # 212
 
+# 이거 된(는 거 같)다. ^^V
 
 # #################### 
 
@@ -53,12 +54,12 @@ pred_datagen = ImageDataGenerator(rescale=1./255)
 
 # # 1. DATA
 # np.load
-x_train = np.load('../Project01_data/9.npy/x_train_cocacola.npy')
-x_test = np.load('../Project01_data/9.npy/x_test_cocacola.npy')
-x_valid = np.load('../Project01_data/9.npy/x_valid_cocacola.npy')
-y_train = np.load('../Project01_data/9.npy/y_train_cocacola.npy')
-y_test = np.load('../Project01_data/9.npy/y_test_cocacola.npy')
-y_valid = np.load('../Project01_data/9.npy/y_valid_cocacola.npy')
+x_train = np.load('../Project01_data/9.npy/color_x_train_cocacola.npy')
+x_test = np.load('../Project01_data/9.npy/color_x_test_cocacola.npy')
+x_valid = np.load('../Project01_data/9.npy/color_x_valid_cocacola.npy')
+y_train = np.load('../Project01_data/9.npy/color_y_train_cocacola.npy')
+y_test = np.load('../Project01_data/9.npy/color_y_test_cocacola.npy')
+y_valid = np.load('../Project01_data/9.npy/color_y_valid_cocacola.npy')
 
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
@@ -110,7 +111,7 @@ valid_generator = etc_datagen.flow(x_valid, y_valid)
 #     return model
 
 # model = modeling()
-model = load_model('../Project01_data/9.cp/find_cocacola_0.7169.hdf5')
+model = load_model('../Project01_data/9.cp/find_cocacola_0.0000.hdf5')
 
 #3 Compile, train
 # es = EarlyStopping(monitor='val_loss', patience=20, mode='min')
@@ -128,18 +129,23 @@ loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
 
+################
 #5 Predict : Find correct image
-im1 = Image.open('../Project01_data/cocacola/1.jpg')   # true
-my1 = np.asarray(im1)
-my1 = np.resize(my1, (x_train.shape[1], x_train.shape[2], x_train.shape[3]))
-my1 = my1.reshape(1, x_train.shape[1], x_train.shape[2], x_train.shape[3])
-true = pred_datagen.flow(my1)
+# img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/1.jpg', color_mode='rgb', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
+img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/67.jpg', color_mode='rgb', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
+im1 = img1.resize((x_train.shape[1], x_train.shape[2]))
+im1 = np.array(im1)/255.
+im1 = im1.reshape(-1, x_train.shape[1], x_train.shape[2],3)
+print(im1.shape)    # (1, 80, 80, 1)
+true = etc_datagen.flow(im1)
 
-im2 = Image.open('../Project01_data/cocacola/60.jpg')   # false
-my2 = np.asarray(im2)
-my2 = np.resize(my2, (x_train.shape[1], x_train.shape[2], x_train.shape[3]))
-my2 = my1.reshape(1, x_train.shape[1], x_train.shape[2], x_train.shape[3])
-false = pred_datagen.flow(my2)
+# img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/60.jpg', color_mode='rgb', target_size=(80, 80))  # false
+img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/244.jpg', color_mode='rgb', target_size=(80, 80))  # false
+im2 = img2.resize((x_train.shape[1], x_train.shape[2]))
+im2 = np.array(im2)/255.
+im2 = im2.reshape(-1, x_train.shape[1], x_train.shape[2],3)
+print(im2.shape)    # (1, 80, 80, 1)
+false = etc_datagen.flow(im2)
 
 true_pred = model.predict(true)
 true_pred = true_pred[0][0]
@@ -148,3 +154,12 @@ print(true_pred)
 false_pred = model.predict(false)
 false_pred = false_pred[0][0]
 print(false_pred)
+
+
+# 1.037172e-06
+# 0.999998
+
+# 3.4570996e-06
+# 1.0
+
+# 오 된 듯 ???

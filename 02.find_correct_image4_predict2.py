@@ -49,7 +49,6 @@ train_datagen = ImageDataGenerator(
 
 etc_datagen = ImageDataGenerator()
 
-pred_datagen = ImageDataGenerator(rescale=1./255)
 
 # # 1. DATA
 # np.load
@@ -129,17 +128,19 @@ print("loss : ", loss)
 print("acc : ", acc)
 
 #5 Predict : Find correct image
-im1 = Image.open('../Project01_data/cocacola/1.jpg')   # true
-my1 = np.asarray(im1)
-my1 = np.resize(my1, (x_train.shape[1], x_train.shape[2], x_train.shape[3]))
-my1 = my1.reshape(1, x_train.shape[1], x_train.shape[2], x_train.shape[3])
-true = pred_datagen.flow(my1)
+img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/1.jpg', color_mode='grayscale', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
+im1 = img1.resize((x_train.shape[1], x_train.shape[2]))
+im1 = np.array(im1)/255.
+im1 = im1.reshape(-1, x_train.shape[1], x_train.shape[2],1)
+print(im1.shape)    # (1, 80, 80, 1)
+true = etc_datagen.flow(im1)
 
-im2 = Image.open('../Project01_data/cocacola/60.jpg')   # false
-my2 = np.asarray(im2)
-my2 = np.resize(my2, (x_train.shape[1], x_train.shape[2], x_train.shape[3]))
-my2 = my1.reshape(1, x_train.shape[1], x_train.shape[2], x_train.shape[3])
-false = pred_datagen.flow(my2)
+img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/60.jpg', color_mode='grayscale', target_size=(80, 80))  # false
+im2 = img2.resize((x_train.shape[1], x_train.shape[2]))
+im2 = np.array(im2)/255.
+im2 = im2.reshape(-1, x_train.shape[1], x_train.shape[2],1)
+print(im2.shape)    # (1, 80, 80, 1)
+false = etc_datagen.flow(im2)
 
 true_pred = model.predict(true)
 true_pred = true_pred[0][0]
@@ -148,3 +149,6 @@ print(true_pred)
 false_pred = model.predict(false)
 false_pred = false_pred[0][0]
 print(false_pred)
+
+# 0.0005312769 
+# 0.037665863

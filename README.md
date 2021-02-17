@@ -10,3 +10,6 @@ Personal project - Drink recognition program for blind
 
 ## 데이터 셋
 총 6종류의 음료수 캔 : 코카콜라, 스프라이트, 환타(오렌지), 포카리스웨트, 데자와, 레쓰비
+
+## 예상 결과물
+![output](https://user-images.githubusercontent.com/70581043/108175943-b4cd4b80-7144-11eb-8df9-6c7962a0634b.jpg)

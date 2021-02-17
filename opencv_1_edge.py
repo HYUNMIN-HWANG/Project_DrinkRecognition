@@ -2,7 +2,9 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread(r'./Project01/cocacolarcan1.jpg')
+# img = cv2.imread(r'../Project01_data/normal_data/cocacola/1.jpg')
+# img = cv2.imread(r'../Project01_data/normal_data/cocacola/video_cocacola2_52.jpg')
+img = cv2.imread(r'../Project01_data/normal_data/cocacola/video_cocacola1_52.jpg')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 

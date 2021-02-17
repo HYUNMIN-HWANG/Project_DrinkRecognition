@@ -60,6 +60,9 @@ y_valid = np.load('../Project01_data/9.npy/y_valid_cocacola.npy')
 print("x : ", x_train.shape, x_test.shape, x_valid.shape)  
 print("y : ", y_train.shape, y_test.shape, y_valid.shape)
 
+# x :  (1080, 64, 64, 3) (127, 64, 64, 3) (57, 64, 64, 3)
+# y :  (1080,) (127,) (57,)
+
 batch = 16
 train_generator = train_datagen.flow(x_train, y_train, batch_size=batch)
 test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
@@ -107,8 +110,8 @@ path = '../Project01_data/9.cp/find_cocacola_{val_loss:.4f}.hdf5'
 cp = ModelCheckpoint(path, monitor='val_loss',mode='min', save_best_only=True)
 
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
-model.fit(
-    train_generator, steps_per_epoch=8, epochs=100, validation_data=valid_generator, validation_steps=4, callbacks=[es, lr,cp]
+hist = model.fit_generator(
+    train_generator, steps_per_epoch=len(x_train) // batch, epochs=100, validation_data=valid_generator, callbacks=[es, lr, cp]
 )
 
 #4 Evaluate, Predict
@@ -116,10 +119,5 @@ loss, acc = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
 
-
-'''
-y_pred = model.predict(valid, steps = 5)
-np.set_printoptions(formatter = {"float":lambda x: "{0:0.3f}".format(x)})
-print(valid.class_indices)
-print(output)
-'''
+# loss :  0.00867743045091629
+# acc :  1.0

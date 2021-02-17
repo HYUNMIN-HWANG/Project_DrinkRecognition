@@ -12,11 +12,15 @@ from glob import glob
 import warnings
 warnings.filterwarnings(action='ignore')
 import tensorflow as tf
+import random
+import cv2
 
 
 # 참고사이트 : https://buillee.tistory.com/111
 # https://github.com/skanwngud/Project/blob/main/mask/human_nohuman.py
+# https://muzukphysics.tistory.com/225
 
+# 뭐가 문제인지 모르겠다. 일단 컬러 이미지여서 안되는 거 같으니 흑백으로 바꾸고 해보자
 
 coke_list=glob('../Project01_data/normal_data/cocacola/*.jpg')
 print(len(coke_list))   # 212
@@ -41,9 +45,7 @@ def labeling (image_list, label, data_list, label_list) :
     for i in image_list :
         try :
             # print(i)
-            img = tf.keras.preprocessing.image.load_img(i,
-            color_mode='rgb',
-            target_size=(64, 64))
+            img = tf.keras.preprocessing.image.load_img(i, color_mode='grayscale', target_size=(80, 80))
             img=np.array(img)/255.
             data_list.append(img)
             label_list.append(label)
@@ -54,6 +56,7 @@ def labeling (image_list, label, data_list, label_list) :
 index = 0
 for std in name_list :
     print("index : ", index)
+    print("standard : ", name[index])
     
     # 기준이 되는 음료수 데이터를 넣는다.
     std_data = list()
@@ -85,7 +88,9 @@ for std in name_list :
     dif_label = list()
     # copy_index = 0
     for dif in copy_list :
-        dif_data, dif_label = labeling (dif, 1, dif_data, dif_label) # labeling 1: 기준이 되는 음료수와 동일하다.
+        dif = random.sample(dif, len(dif)//5)  # 랜덤 추출 : labeling 0 개수와 labeling 1 개수를 비슷하게 만들기 위해서 기준이 아닌 음료수에서는 각각 20% 개수씩 가져온다.
+        # print(len(dif))
+        dif_data, dif_label = labeling (dif, 1, dif_data, dif_label) # labeling 1: 기준이 되는 음료수와 다르다.
         # print(len(dif_data))
         # print(len(dif_label))
         # copy_index += 1
@@ -102,6 +107,7 @@ for std in name_list :
 
     index += 1
 
+
 print("==========자동 변수 생성 확인=========")
 print(" std_data|std_label|dif_data|dif_label")
 print(len(std_data_cocacola),len(std_label_cocacola),len(dif_data_cocacola),len(dif_label_cocacola))
@@ -111,42 +117,51 @@ print(len(std_data_pocari),len(std_label_pocari),len(dif_data_pocari),len(dif_la
 print(len(std_data_sprite),len(std_label_sprite),len(dif_data_sprite),len(dif_label_sprite))
 print(len(std_data_tejava),len(std_label_tejava),len(dif_data_tejava),len(dif_label_tejava))
 
+# 209 209 208 208
+# 209 209 208 208
+# 212 212 208 208
+# 211 211 208 208
+# 211 211 209 209
+# 212 212 206 206
+
+
 
 # np.save =====================================================================
 print("np.save start>>>>>>>>>>>>>>>>>>>>>")
-np.save('../Project01_data/9.npy/std_data_cocacola', arr=std_data_cocacola)
-np.save('../Project01_data/9.npy/std_label_cocacola', arr=std_label_cocacola)
-np.save('../Project01_data/9.npy/dif_data_cocacola', arr=dif_data_cocacola)
-np.save('../Project01_data/9.npy/dif_label_cocacola', arr=dif_label_cocacola)
+np.save('../Project01_data/9.npy/gray_std_data_cocacola', arr=std_data_cocacola)
+np.save('../Project01_data/9.npy/gray_std_label_cocacola', arr=std_label_cocacola)
+np.save('../Project01_data/9.npy/gray_dif_data_cocacola', arr=dif_data_cocacola)
+np.save('../Project01_data/9.npy/gray_dif_label_cocacola', arr=dif_label_cocacola)
 
-np.save('../Project01_data/9.npy/std_data_fanta', arr=std_data_fanta)
-np.save('../Project01_data/9.npy/std_label_fanta', arr=std_label_fanta)
-np.save('../Project01_data/9.npy/dif_data_fanta', arr=dif_data_fanta)
-np.save('../Project01_data/9.npy/dif_label_fanta', arr=dif_label_fanta)
+np.save('../Project01_data/9.npy/gray_std_data_fanta', arr=std_data_fanta)
+np.save('../Project01_data/9.npy/gray_std_label_fanta', arr=std_label_fanta)
+np.save('../Project01_data/9.npy/gray_dif_data_fanta', arr=dif_data_fanta)
+np.save('../Project01_data/9.npy/gray_dif_label_fanta', arr=dif_label_fanta)
 
-np.save('../Project01_data/9.npy/std_data_letsbee', arr=std_data_letsbee)
-np.save('../Project01_data/9.npy/std_label_letsbee', arr=std_label_letsbee)
-np.save('../Project01_data/9.npy/dif_data_letsbee', arr=dif_data_letsbee)
-np.save('../Project01_data/9.npy/dif_label_letsbee', arr=dif_label_letsbee)
+np.save('../Project01_data/9.npy/gray_std_data_letsbee', arr=std_data_letsbee)
+np.save('../Project01_data/9.npy/gray_std_label_letsbee', arr=std_label_letsbee)
+np.save('../Project01_data/9.npy/gray_dif_data_letsbee', arr=dif_data_letsbee)
+np.save('../Project01_data/9.npy/gray_dif_label_letsbee', arr=dif_label_letsbee)
 
-np.save('../Project01_data/9.npy/std_data_pocari', arr=std_data_pocari)
-np.save('../Project01_data/9.npy/std_label_pocari', arr=std_label_pocari)
-np.save('../Project01_data/9.npy/dif_data_pocari', arr=dif_data_pocari)
-np.save('../Project01_data/9.npy/dif_label_pocari', arr=dif_label_pocari)
+np.save('../Project01_data/9.npy/gray_std_data_pocari', arr=std_data_pocari)
+np.save('../Project01_data/9.npy/gray_std_label_pocari', arr=std_label_pocari)
+np.save('../Project01_data/9.npy/gray_dif_data_pocari', arr=dif_data_pocari)
+np.save('../Project01_data/9.npy/gray_dif_label_pocari', arr=dif_label_pocari)
 
-np.save('../Project01_data/9.npy/std_data_sprite', arr=std_data_sprite)
-np.save('../Project01_data/9.npy/std_label_sprite', arr=std_label_sprite)
-np.save('../Project01_data/9.npy/dif_data_sprite', arr=dif_data_sprite)
-np.save('../Project01_data/9.npy/dif_label_sprite', arr=dif_label_sprite)
+np.save('../Project01_data/9.npy/gray_std_data_sprite', arr=std_data_sprite)
+np.save('../Project01_data/9.npy/gray_std_label_sprite', arr=std_label_sprite)
+np.save('../Project01_data/9.npy/gray_dif_data_sprite', arr=dif_data_sprite)
+np.save('../Project01_data/9.npy/gray_dif_label_sprite', arr=dif_label_sprite)
 
-np.save('../Project01_data/9.npy/std_data_tejava', arr=std_data_tejava)
-np.save('../Project01_data/9.npy/std_label_tejava', arr=std_label_tejava)
-np.save('../Project01_data/9.npy/dif_data_tejava', arr=dif_data_tejava)
-np.save('../Project01_data/9.npy/dif_label_tejava', arr=dif_label_tejava)
+np.save('../Project01_data/9.npy/gray_std_data_tejava', arr=std_data_tejava)
+np.save('../Project01_data/9.npy/gray_std_label_tejava', arr=std_label_tejava)
+np.save('../Project01_data/9.npy/gray_dif_data_tejava', arr=dif_data_tejava)
+np.save('../Project01_data/9.npy/gray_dif_label_tejava', arr=dif_label_tejava)
 print("np.save end<<<<<<<<<<<<<<<<<<<<<<<")
 # np.save =====================================================================
 
 '''
+# 잘 저장되어 있는지 확인
 # np.load =====================================================================
 print("np.load start>>>>>>>>>>>>>>>>>>")
 std_data_cocacola = np.load('../Project01_data/9.npy/std_data_cocacola.npy')
@@ -184,6 +199,6 @@ print("np.load end<<<<<<<<<<<<<<<<<<<<<<<")
 # print(std_data_cocacola)
 print(std_data_cocacola.shape)   # (209, 64, 64, 3)
 print(std_label_cocacola.shape)  # (209,)
-print(dif_data_cocacola.shape)   # (1055, 64, 64, 3)
-print(dif_label_cocacola.shape)  # (1055,)
+print(dif_data_cocacola.shape)   # (210, 64, 64, 3)
+print(dif_label_cocacola.shape)  # (210,)
 '''

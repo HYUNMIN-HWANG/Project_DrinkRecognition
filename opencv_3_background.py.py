@@ -4,8 +4,8 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread(r'./Project01/cocacolarcan1.jpg')
-img = cv2.imread(r'./Project01/sprite1.jpg')
+img = cv2.imread(r'../Project01_data/normal_data/cocacola/1.jpg')
+# img = cv2.imread(r'../Project01_data/normal_data/cocacola/2.jpg')
 print(img.shape)    # (225, 225, 3)
 cv2.imshow("raw", img)
 

@@ -10,7 +10,9 @@ import cv2
 # mp4 = ['video_cocacola1','video_cocacola2','video_letsbee1','video_letsbee2','video_letsbee3','video_letsbee4',\
 #     'video_pocari1','video_pocari2','video_sprite1','video_sprite2','video_tejava1','video_tejava2']
 
-mp4 = ['video_fanta1','video_fanta2']
+# mp4 = ['video_fanta1','video_fanta2']
+
+mp4 = ['video_tejava3','video_tejava4']
 
 for i in mp4 :
     video_file = '../Project01_data/video/' + str(i) + '.mp4'

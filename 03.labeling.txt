@@ -1,0 +1,12 @@
+labelimg 툴을 사용하여 전체 데이터 라벨링함
+
+can >> 각 음료수 당 100장 정도씩만 라벨링 했음
+cocacola
+fanta
+letsbe  >> 한글 '레쓰비'
+letsbe_E    >> 영어 Let's Be
+pocari
+sprite
+tejava_k    >> 한글 '데자와'
+tejava_e    >> 영어 'tejava'
+

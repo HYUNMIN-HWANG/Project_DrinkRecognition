@@ -1,6 +1,9 @@
 예상 출력물 : 이미지 위에 음료수 라벨명이 출력됨과 동시에 음성으로도 라벨명을 알려준다.
+(욜로는 코랩에서 구현함)
 
-from IPython.display import Image
+# predict 테스트 데이터로 추론하기
+# 출력 결과물 : 이미지 & 음성파일
+from IPython.display import Image, Audio
 >>
     https://ipython.readthedocs.io/en/stable/api/generated/IPython.display.html 
     Create a PNG/JPEG/GIF image object given raw data.
@@ -8,96 +11,37 @@ from IPython.display import Image
 
 import os
 
-val_img_path = val_img_list[1]
+val_img_path = val_img_list[11]
+# val_img_path = '/content/yolov5/MyDrive/MyDrive/20210219_225609.jpg'
 
-!python detect.py --weights /content/yolov5/runs/train/drink_yolov5s_results/weights/best.pt --img 416 --conf 0.5 --source "{val_img_path}"
+!python detect2.py --weights /content/yolov5/MyDrive/MyDrive/Colab/project01/yolov5_2/best.pt --img 416 --conf 0.5 --source "{val_img_path}"    # 416
                     # 생성된 가중치를 불러온다.                                             # 이미지 크기   # confidence    # 소스
-
-Image(os.path.join('/content/yolov5/runs/detect/exp7',os.path.basename(val_img_path)))
+Image(os.path.join('/content/yolov5/runs/detect/exp1',os.path.basename(val_img_path)))
 >>
     폴더에 있는 이미지 파일을 보여준다.
     os.path.join : 경로를 병합하여 새 경로 생성
     os.path.basename : 경로 중 파일명만 얻기
 
+Audio('/content/yolov5/labelEN.mp3', rate=44100 ,autoplay=True)
+>>
+    생성된 음성파일을 재생한다.
+
+
 ====== Audio ======
 >>> test -> mp3
+
 pip install gTTS
->>>
-from gtts import gTTS
+설치 후
 
-tts = gTTS(text="This is cocacola!!!", lang='en')
-tts.save("cocacolaEN.mp3")
-
->>> play mp3 : https://wikidocs.net/15214 // https://www.pygame.org/docs/ref/mixer.html
-pip install pygame
->>>
-import pygame
-
-music_file = "1.mp3"   # mp3 or mid file
-
-freq = 16000    # sampling rate, 44100(CD), 16000(Naver TTS), 24000(google TTS)
-bitsize = -16   # signed 16 bit. support 8,-8,16,-16
-channels = 1    # 1 is mono, 2 is stereo
-buffer = 2048   # number of samples (experiment to get right sound)
-
-# default : pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=4096)
-pygame.mixer.init(freq, bitsize, channels, buffer)
-pygame.mixer.music.load(music_file)
-pygame.mixer.music.play()
-
-clock = pygame.time.Clock()
-while pygame.mixer.music.get_busy():
-    clock.tick(30)
-pygame.mixer.quit()   
-
-''' 실제 사용 예시
-from gtts import gTTS
-import pygame
-
-
-tts = gTTS(text="This is cocacola", lang='en')
-tts.save("C:\AIA 아카데미 인공지능\Jump_to_python_practice\Project01\cocacola.mp3")
-print("= mp3 save complete =")
-
-music_file = "C:\AIA 아카데미 인공지능\Jump_to_python_practice\Project01\cocacola.mp3"   # mp3 or mid file
-
-freq = 24000    # sampling rate, 44100(CD), 16000(Naver TTS), 24000(google TTS)
-bitsize = -16   # signed 16 bit. support 8,-8,16,-16
-# -16 : 정상소리, 가장 깔끔한 소리가 난다.
-# 16 : 삐- 소리 나옴
-# -8 : 정상 소리
-# 8 : 정상 소리
-channels = 1    # 1 is mono, 2 is stereo
-buffer = 2048   # number of samples (experiment to get right sound)
-# buffer가 낮을 때 : 지연 시간을 줄일 수 있음, 재생을 건너 뛸 수 있다.
-# buffer가 클 때 : 재생을 건너뒤지 않음, 지연 시간이 생긴다.
-# 2의 제곱으로 정해야 함
-
-# default : pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=4096)
-pygame.mixer.init(freq, bitsize, channels, buffer)  # 초기화
-pygame.mixer.music.load(music_file) # 음성파일 가져오기
-pygame.mixer.music.play()   # 음성파일 실행
-
-clock = pygame.time.Clock() 
-while pygame.mixer.music.get_busy():    # 음성파일이 재생되고 있는 동안에
-    clock.tick(30)  # update the clock, 호출한 후 경과된 시간을 계산한다. 런타임을 제한하는데 사용한다. 
-pygame.mixer.quit()  # 음성파일 종료
-'''
->>> os
-from IPython.display import Audio
-Audio('/path/to/sound.wav')  # From file
-Audio(filename='/path/to/sound.ogg')
-
-
-
-                if save_img or view_img:  # Add bbox to image
+predict.py 수정
+                    if save_img or view_img:  # Add bbox to image
                         label = f'{names[int(cls)]} {conf:.2f}'
 
                         # mp3 파일 생성하고 재생시키기
-                        txt = str(names[int(cls))
+                        from gtts import gTTS
+                        
+                        txt = str(names[int(cls)])
                         tts = gTTS(text=txt, lang='en')
                         tts.save("/content/yolov5/labelEN.mp3")
-                        music_file = "/content/yolov5/labelEN.mp3"
-                        Audio(music_file, rate=2050 ,autoplay=True)
-                        
-                plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
+                        print("/content/yolov5/labelEN.mp3 save")
+                        plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)

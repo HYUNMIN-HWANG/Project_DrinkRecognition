@@ -4,3 +4,4 @@
 # Yolov5, colab : https://www.youtube.com/watch?v=R1Bf067Z5uM
 # official : https://github.com/ultralytics/yolov5
 
+# 코랩으로 작업함

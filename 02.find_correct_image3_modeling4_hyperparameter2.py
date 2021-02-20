@@ -37,7 +37,6 @@ name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, teja
 name = ['cocacola','fanta','letsbee','pocari','sprite','tejava']
 
 train_datagen = ImageDataGenerator(
-    # rescale=1./255,
     width_shift_range=0.2,
     height_shift_range=0.2,
     rotation_range=5,
@@ -68,64 +67,52 @@ test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
 
 #2 Modeling
-def modeling(optimizer='adam', drop1=0.2, drop2=0.3, drop3=0.4, node1=128, node2=64, activation1='relu', activation2='relu') :
+def modeling() :
     model = Sequential()
-    model.add(Conv2D(32, (2,2), padding='same', activation=activation1, input_shape=(x_train.shape[1], x_train.shape[2], x_train.shape[3])))
+    model.add(Conv2D(32, 3, padding='same', activation='elu', input_shape=(x_train.shape[1], x_train.shape[2], x_train.shape[3])))
     model.add(BatchNormalization())
-    model.add(Conv2D(32, (3,3), padding='same', activation=activation1))
+    model.add(Conv2D(32, 3, padding='same', activation='elu'))
     model.add(BatchNormalization())
-    model.add(MaxPool2D(2,2))
-    model.add(Dropout(drop1))
+    model.add(MaxPool2D(2))
+    model.add(Dropout(0.2))
 
-    model.add(Conv2D(64, (2,2), padding='same', activation=activation1))
+    model.add(Conv2D(64, 2, padding='same', activation='elu'))
     model.add(BatchNormalization())
-    model.add(Conv2D(64, (2,2), padding='same', activation=activation1))
+    model.add(Conv2D(64, 2, padding='same', activation='elu'))
     model.add(BatchNormalization())
-    model.add(MaxPool2D(2,2))
-    model.add(Dropout(drop2))
+    model.add(MaxPool2D(3))
+    model.add(Dropout(0.3))
 
-    model.add(Conv2D(128, (2,2), padding='same', activation=activation1))
+    model.add(Conv2D(128, 2, padding='same', activation='elu'))
     model.add(BatchNormalization())
-    model.add(Conv2D(128, (2,2), padding='same', activation=activation1))
+    model.add(Conv2D(128, 2, padding='same', activation='elu'))
     model.add(BatchNormalization())
-    model.add(MaxPool2D(2,2))
-    model.add(Dropout(drop3))
+    model.add(MaxPool2D(2))
+    model.add(Dropout(0.2))
 
     model.add(Flatten())
-    model.add(Dense(node1, activation=activation2))
-    model.add(Dense(node2, activation=activation2))
+    model.add(Dense(128, activation='elu'))
+    model.add(Dense(32, activation='elu'))
     model.add(Dense(1, activation='sigmoid'))
 
-    model.compile(optimizer=optimizer, metrics=['acc'], loss='binary_crossentropy')
     return model
 
-# model = modeling()
+model = modeling()
 
-# hyperparameter 확인
-model = KerasClassifier(build_fn=modeling, verbose=1)   
+#3 Compile, train
+es = EarlyStopping(monitor='val_loss', patience=20, mode='min')
+lr = ReduceLROnPlateau(monitor='val_loss', factor=0.3, patience=10, mode='min')
+# path = '../Project01_data/9.cp/find_cocacola_{val_loss:.4f}.hdf5'
+# cp = ModelCheckpoint(path, monitor='val_loss',mode='min', save_best_only=True)
 
-def create_hyperparameters() :
-    batches = [16, 32, 64]
-    optimizers = ['rmsprop', 'adam', 'adadelta','sgd']
-    dropout1 = [0.2, 0.3, 0.4]
-    dropout2 = [0.2, 0.3, 0.4]
-    dropout3 = [0.2, 0.3, 0.4]
-    node1 = [32, 64, 128]
-    node2 = [32, 64, 128]
-    activation1 =['relu','elu','prelu']
-    activation2 =['relu','elu','prelu']
-    return {"batch_size" : batches, "optimizer" : optimizers, \
-        "drop1" : dropout1, "drop2" : dropout2, "drop3" : dropout3, "node1" : node1, "node2" : node2, "activation1" : activation1, "activation2" : activation2}
+model.compile(optimizer='adam', metrics=['acc'], loss='binary_crossentropy')
+hist = model.fit_generator(
+    train_generator, steps_per_epoch=len(x_train) // batch, epochs=100, validation_data=valid_generator, callbacks=[es, lr])
 
-hyperparameters = create_hyperparameters()
+#4 Evaluate, Predict
+loss, acc = model.evaluate(test_generator)
+print("loss : ", loss)
+print("acc : ", acc)
 
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = RandomizedSearchCV(model, hyperparameters, cv=2)
-
-print("best_params : ", search.best_params_) 
-print("best_estimator : ", search.best_estimator_)  
-print("best_score : ", search.best_score_)    
-acc = search.score(x_test, y_test)
-print("Score : ", acc)
-
-# 돌려보자!!!!!!!!!!!!!!!
+# loss :  0.00040986770181916654
+# acc :  1.0

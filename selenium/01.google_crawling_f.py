@@ -45,18 +45,19 @@ while True:                                                                     
 # .rg_i.Q4LuWd : 다운받을 이미지들의 class 명으로 가져온다.
 # [0].click() : 첫 번째 이미지를 클릭하겠다.
 
-images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd") 
+images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd")                   # 검색해서 나온 이미지
 count = 1
 for image in images : 
     try : 
         image.click() 
         time.sleep(10)
-        imgUrl = driver.find_element_by_xpath\
-            ("/html/body/div[2]/c-wiz/div[3]/div[2]/div[3]/div/div/div[3]/div[2]/c-wiz/div/div[1]/div[1]/div/div[2]/a/img").get_attribute("src")
-        opener = urllib.request.build_opener()
-        opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
-        urllib.request.install_opener(opener)
-        urllib.request.urlretrieve(imgUrl, str(count) + ".jpg") 
+        imgUrl = driver.find_element_by_xpath\  
+            ("/html/body/div[2]/c-wiz/div[3]/div[2]/div[3]/div/div/div[3]/div[2]/c-wiz/div/div[1]/div[1]/div/div[2]/a/img").get_attribute("src")    # 다운받을 이미지 창 띄우기
+            # src : 재생할 미디어 파일의 URL을 명시
+        opener = urllib.request.build_opener()                  # 오프너 : OpenerDirector 인스턴스를 만든다.
+        opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]    # 봇이 아닌 사람임, 오프너를 사용해서 가져온다.
+        urllib.request.install_opener(opener)                   # 오프너를 설치한다. > 오프너를 사용한다.
+        urllib.request.urlretrieve(imgUrl, str(count) + ".jpg") # 지정한 파일이름으로 저장
         print(count, "download success")
         count += 1
     except :

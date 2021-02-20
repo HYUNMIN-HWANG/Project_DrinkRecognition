@@ -66,7 +66,6 @@ for image in images :
         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
         urllib.request.install_opener(opener)
         urllib.request.urlretrieve(imgUrl, str(count) + ".jpg") 
-        # print("problem3")
         # urllib.request.urlretrieve(imgUrl, path)
         # 이미지를 저장한다.
         print(count, "download success")

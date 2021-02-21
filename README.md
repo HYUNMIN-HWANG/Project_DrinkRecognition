@@ -1,6 +1,6 @@
 # Personal project - Drink recognition program for blind
 시각 장애인을 위한 캔 음료수 인식 프로그램
-- 캔 음료수 진을 찍으면 음료의 브랜드를 알려준다.
+- 캔 음료수 사진을 찍으면 음료의 브랜드를 알려준다.
 
 ## 일정
 2021.02.15 ~ 2021.02.22

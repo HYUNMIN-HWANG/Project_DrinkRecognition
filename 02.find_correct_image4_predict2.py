@@ -130,7 +130,7 @@ print("acc : ", acc)
 #5 Predict : Find correct image
 # img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/1.jpg', color_mode='grayscale', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
 # img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/67.jpg', color_mode='grayscale', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
-img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/video_cocacola2_26.jpg', color_mode='grayscale', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
+# img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/video_cocacola2_26.jpg', color_mode='grayscale', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
 # img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/196.jpg', color_mode='grayscale', target_size=(80, 80)) # 원래 크기 : (936, 936, 3) # true
 im1 = img1.resize((x_train.shape[1], x_train.shape[2]))
 im1 = np.array(im1)/255.

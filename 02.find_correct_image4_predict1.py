@@ -76,7 +76,9 @@ test_generator = etc_datagen.flow(x_test, y_test, batch_size=batch)
 valid_generator = etc_datagen.flow(x_valid, y_valid)
 
 
-model = load_model('../Project01_data/9.cp/find_cocacola_0.0000.hdf5')
+# model = load_model('../Project01_data/9.cp/find_cocacola_0.0000.hdf5')
+model = load_model('../Project01_data/9.cp/find_pocari_0.0028.hdf5')
+
 
 #3 Compile, train
 # es = EarlyStopping(monitor='val_loss', patience=20, mode='min')
@@ -101,30 +103,33 @@ print("acc : ", acc)
 
 # img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/1.jpg', color_mode='rgb', target_size=(80, 80))  # true
 # img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/67.jpg', color_mode='rgb', target_size=(80, 80)) # true
-img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/video_cocacola2_26.jpg', color_mode='rgb', target_size=(80, 80))   # true
+# img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/video_cocacola2_26.jpg', color_mode='rgb', target_size=(80, 80))   # true
 # img1 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/196.jpg', color_mode='rgb', target_size=(80, 80))   # true
+img1 = tf.keras.preprocessing.image.load_img('../Project01_data/pocari/208.jpg', color_mode='rgb', target_size=(80, 80))   # true
 im1 = img1.resize((x_train.shape[1], x_train.shape[2]))
 im1 = np.array(im1)/255.
 im1 = im1.reshape(-1, x_train.shape[1], x_train.shape[2],3)
-print(im1.shape)    # (1, 80, 80, 1)
+print(im1.shape)    # (1, 64, 64, 3)
 true = etc_datagen.flow(im1)
 
 # img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/60.jpg', color_mode='rgb', target_size=(80, 80))  # false
 # img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/244.jpg', color_mode='rgb', target_size=(80, 80))  # false
-img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/208.jpg', color_mode='rgb', target_size=(80, 80))  # false
+# img2 = tf.keras.preprocessing.image.load_img('../Project01_data/cocacola/208.jpg', color_mode='rgb', target_size=(80, 80))  # false
+img2 = tf.keras.preprocessing.image.load_img('../Project01_data/pocari/209.jpg', color_mode='rgb', target_size=(80, 80))   # true
+
 im2 = img2.resize((x_train.shape[1], x_train.shape[2]))
 im2 = np.array(im2)/255.
 im2 = im2.reshape(-1, x_train.shape[1], x_train.shape[2],3)
-print(im2.shape)    # (1, 80, 80, 1)
+print(im2.shape)    # (1, 64, 64, 3)
 false = etc_datagen.flow(im2)
 
 true_pred = model.predict(true)
 true_pred = true_pred[0][0]
-print(true_pred)
+print("img1: ",true_pred)
 
 false_pred = model.predict(false)
 false_pred = false_pred[0][0]
-print(false_pred)
+print("img2: ", false_pred)
 
 
 # 1.037172e-06

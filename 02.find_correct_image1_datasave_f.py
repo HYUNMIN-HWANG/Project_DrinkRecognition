@@ -28,8 +28,9 @@ print(len(sprite_list))   # 212
 tejava_list = glob('../Project01_data/normal_data/tejava/*.jpg')
 print(len(tejava_list))   # 212
 
-
-
+import random
+import numpy as np
+import cv2 as cv
 #################### 
 
 name_list = [coke_list, fanta_list, letsbee_list, pocari_list, sprite_list, tejava_list]

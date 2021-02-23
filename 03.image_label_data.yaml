@@ -1,6 +1,6 @@
 # train and val data
-train: ../train/images
-val: ../val/images
+train: /content/yolov5/MyDrive/MyDrive/Colab/project01/train.txt
+val: /content/yolov5/MyDrive/MyDrive/Colab/project01/val.txt
 
 # number of classes
 nc: 24

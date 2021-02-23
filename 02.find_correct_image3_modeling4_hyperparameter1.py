@@ -101,7 +101,7 @@ valid_generator = etc_datagen.flow(x_valid, y_valid)
     model.compile(optimizer=optimizer, metrics=['acc'], loss='binary_crossentropy')
     return model
 
-def modeling(pool1=2, pool2=2, pool3=2) :
+def modeling() :
     model = Sequential()
     model.add(Conv2D(32, 3, padding='same', activation='elu', input_shape=(x_train.shape[1], x_train.shape[2], x_train.shape[3])))
     model.add(BatchNormalization())

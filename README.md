@@ -17,5 +17,5 @@
 ![output](https://user-images.githubusercontent.com/70581043/108175943-b4cd4b80-7144-11eb-8df9-6c7962a0634b.jpg)
 
 ## 최종 결과물
-📋 [pdf 링크 👉 이곳을 클릭하세요 ](https://drive.google.com/file/d/14L7V6huSQ6sqqWF_GkbMw9PyaZuwDwua/view?usp=sharing)
-📷 [시연영상 링크 👉 이곳을 클릭하세요 ](https://drive.google.com/file/d/1cSzaTSKpAbs4Mlzpf7-hQXWXLOvtGat3/view?usp=sharing)
+📋 pdf 링크 [👉 이곳을 클릭하세요 ](https://drive.google.com/file/d/14L7V6huSQ6sqqWF_GkbMw9PyaZuwDwua/view?usp=sharing)\
+📷 시연영상 링크 [👉 이곳을 클릭하세요 ](https://drive.google.com/file/d/1cSzaTSKpAbs4Mlzpf7-hQXWXLOvtGat3/view?usp=sharing)

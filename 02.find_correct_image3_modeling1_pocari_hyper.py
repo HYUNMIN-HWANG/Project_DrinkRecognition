@@ -102,24 +102,48 @@ def modeling() :
 
 model = modeling()
 
+from keras import backend as K
+
+def recall_m(y_true, y_pred):
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    recall = true_positives / (possible_positives + K.epsilon())
+    return recall
+
+def precision_m(y_true, y_pred):
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    return precision
+
+def f1_m(y_true, y_pred):
+    precision = precision_m(y_true, y_pred)
+    recall = recall_m(y_true, y_pred)
+    return 2*((precision*recall)/(precision+recall+K.epsilon()))
+
 #3 Compile, train
 es = EarlyStopping(monitor='val_loss', patience=20, mode='min')
 lr = ReduceLROnPlateau(monitor='val_loss', factor=0.3, patience=10, mode='min')
 # path = '../Project01_data/9.cp/find_pocari_{val_loss:.4f}.hdf5'
 # cp = ModelCheckpoint(path, monitor='val_loss',mode='min', save_best_only=True)
 
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc', f1_m])
 hist = model.fit_generator(
     train_generator, steps_per_epoch=len(x_train) // batch, epochs=100, validation_data=valid_generator, callbacks=[es, lr]#, cp]
 )
 
 #4 Evaluate, Predict
-loss, acc = model.evaluate(test_generator)
+loss, acc, f1_score = model.evaluate(test_generator)
 print("loss : ", loss)
 print("acc : ", acc)
+print("f1_score : ", f1_score)
 
 # loss :  0.02690664865076542
 # acc :  0.976190447807312
 
 # loss :  0.036051612347364426
 # acc :  0.976190447807312
+
+# loss :  0.043258070945739746
+# acc :  0.976190447807312
+# f1_score :  0.9841269850730896

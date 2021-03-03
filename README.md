@@ -11,10 +11,10 @@
 
 ## 데이터 셋
 6종류의 캔 음료수 이미지 : 코카콜라, 스프라이트, 환타(오렌지), 포카리스웨트, 데자와, 레쓰비\
-총 5,424장\
+총 5,424장
 
 ![output](https://user-images.githubusercontent.com/70581043/108175943-b4cd4b80-7144-11eb-8df9-6c7962a0634b.jpg)
 
 ## 최종 결과물
-📋 pdf 링크 [👉 이곳을 클릭하세요 ](https://drive.google.com/file/d/14L7V6huSQ6sqqWF_GkbMw9PyaZuwDwua/view?usp=sharing)\
-📷 시연영상 링크 [👉 이곳을 클릭하세요 ](https://drive.google.com/file/d/1cSzaTSKpAbs4Mlzpf7-hQXWXLOvtGat3/view?usp=sharing)
+📋 pdf 링크 👉 [이곳을 클릭하세요 ](https://drive.google.com/file/d/14L7V6huSQ6sqqWF_GkbMw9PyaZuwDwua/view?usp=sharing)\
+📷 시연영상 링크 👉 [이곳을 클릭하세요 ](https://drive.google.com/file/d/1cSzaTSKpAbs4Mlzpf7-hQXWXLOvtGat3/view?usp=sharing)
